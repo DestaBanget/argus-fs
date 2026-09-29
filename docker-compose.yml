@@ -11,6 +11,7 @@ services:
     volumes:
       - ./results:/results
       - ../argus-benchmark/test-cases:/test-cases:ro
+      - ../argus-benchmark/test-cases-x:/test-cases-x:ro
       - ../argus-benchmark/gitconfig:/root/.gitconfig:ro
       - ./argus_components:/root/argus_components:ro
       - ./qlqueries:/root/qlqueries
