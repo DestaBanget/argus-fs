@@ -691,11 +691,11 @@ class TaintEngine:
         # Isi $GITHUB_EVENT_PATH = payload event, dikontrol penyerang pada pull_request_target, issue_comment, dsb.
         return TaintObj(name="github.event (via $GITHUB_EVENT_PATH)", type="context", location=self.get_location(), engine=self)
 
-    def _stage_sources(self, text, cwd):
+    def _stage_sources(self, text, ctx):
         """Sumber taint pada satu stage shell -> [(jenis, TaintObj)]; jenis: file, event, env, ci."""
         out = []
         if fsstate.flags() & {"shell", "eventpath"}:
-            for key in fsstate.mentioned_paths(text, cwd):
+            for key in fsstate.mentioned_paths(text, ctx):
                 if key == fsstate.EVENT_KEY:
                     if fsstate.enabled("eventpath"):
                         out.append(("event", self._event_taint()))
@@ -726,17 +726,26 @@ class TaintEngine:
         logger.info(f"FILE-STATE {'append' if append else 'write'} {key} tainted={key in self.file_state} @ {self.get_location()}")
 
     def handle_shell_file_flow(self, task : GHRunTask):
-        cwd = fsstate.cwd_key(getattr(task, "working_directory", ""))
+        # variabel shell berisi literal (env step dan assignment NAME=nilai) dipakai untuk menormalisasi path
+        env_literals = {e["name"]: e["value"] for e in task.env if isinstance(e.get("value"), str) and not e.get("CIvars") and "$" not in e["value"]}
+        ctx = fsstate.Ctx(fsstate.cwd_key(getattr(task, "working_directory", "")), env_literals)
+        ok = {"file", "event"} | ({"env"} if fsstate.enabled("envexec") else set())
         for stmt in fsstate.statements(task.command):
+            assigned = fsstate.literal_assignments(fsstate.words(stmt))
+            if assigned is not None:
+                ctx.vars.update(assigned)
+                continue
             carry = []
             for stage in fsstate.pipeline(stmt):
-                text, writes, words = fsstate.parse_stage(stage)
-                srcs = carry + self._stage_sources(text, cwd)
-                sink = fsstate.exec_sink(words, cwd)
+                text, writes, words, heredoc = fsstate.parse_stage(stage)
+                here = self._stage_sources(heredoc[1], ctx) if heredoc and not heredoc[0] else []
+                srcs = carry + self._stage_sources(text, ctx) + here
+                sink = fsstate.exec_sink(words, ctx)
                 hits = []
                 if sink and sink[0] == "code":
-                    ok = {"file", "event"} | ({"env"} if fsstate.enabled("envexec") else set())
                     hits = [t for k, t in srcs if k in ok]
+                elif sink and sink[0] == "stdin":
+                    hits = [t for k, t in carry + here if k in ok]
                 elif sink and sink[0] == "file" and fsstate.enabled("shell"):
                     hits = list(self.file_state.get(sink[1], []))
                 hits = self._flat(hits)
@@ -747,9 +756,13 @@ class TaintEngine:
                     self.raise_alert(alert_type="FileTaintShellCmd", taint_obj=taint_obj)
                 if fsstate.enabled("shell"):
                     for tgt, append in writes:
-                        key = fsstate.normalize(tgt, cwd)
+                        key = ctx.norm(tgt)
                         if key and key != fsstate.EVENT_KEY:
                             self._fs_write(key, [t for _, t in srcs], append, tgt)
+                    for op, src, dst in fsstate.file_ops(words, ctx):
+                        self._fs_write(dst, list(self.file_state.get(src, [])), False, f"{op} {src}")
+                        if op == "mv" and src != dst:
+                            self.file_state.pop(src, None)
                 carry = srcs
 #
 # JS actions
