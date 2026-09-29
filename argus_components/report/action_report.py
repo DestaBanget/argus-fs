@@ -20,6 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import argus_components.fsstate as fsstate
 import sarif_om
 from jschema_to_python.to_json import to_json
 
@@ -66,7 +67,32 @@ class ActionReport(Report):
 
 
 
+    # ekstensi file-state: fungsi fs yang dengan flag "js" diperlakukan sebagai propagasi, bukan sink
+    FS_SINK_FUNCTIONS = {"write", "writeFile", "writev", "read", "readFile", "append", "appendFile"}
+
+    @staticmethod
+    def _drop_fs_sinks(reports):
+        out = []
+        for report in reports:
+            sinks = [s for s in report["sinks"] if s["function"] not in ActionReport.FS_SINK_FUNCTIONS]
+            if sinks:
+                out.append({**report, "sinks": sinks, "sinkset": list({s["function"] for s in sinks})})
+        return out
+
     def parse_js_report(self, report_dict):
+        if fsstate.enabled("js"):
+            report_dict = dict(report_dict)
+            for key in ("ArgToLSink", "EnvtoLSink", "ContextToLSink"):
+                report_dict[key] = ActionReport._drop_fs_sinks(report_dict[key])
+            # aliran tulis -> baca file di dalam Action (FileFlowSinks.ql), tanpa duplikat
+            extra = [r for r in report_dict.get("ArgToSinkViaFile", []) if r not in report_dict["ArgToSink"]]
+            report_dict["ArgToSink"] = report_dict["ArgToSink"] + extra
+            self.arg_to_file = report_dict.get("ArgToFile", [])
+        else:
+            self.arg_to_file = []
+        self._parse_js_report(report_dict)
+
+    def _parse_js_report(self, report_dict):
         """
         report looks like -
         {'ArgToSink': [{'name': '"wxhook"', 'source': 'file:/tmp/TDesignOteam#create-report/daily-issue.js:6:16', 'type': 'input', 'sinks': [{'function': 'exec', 'sink': 'file:/tmp/TDesignOteam#create-report/daily-issue.js:26:5'}, {'function': 'exec', 'sink': 'file:/tmp/TDesignOteam#create-report/daily-xiaolv.js:85:9'}], 'sinkset': ['exec']}], 'ArgToLSink': [], 'EnvtoSink': [], 'EnvtoLSink': [], 'ArgToOutput': [], 'EnvtoOutput': [], 'ContextToSink': [{'name': 'context ... e.title', 'source': 'file:/tmp/TDesignOteam#create-report/daily-issue.js:11:15', 'type': 'context', 'sinks': [{'function': 'exec', 'sink': 'file:/tmp/TDesignOteam#create-report/daily-issue.js:26:5'}], 'sinkset': ['exec']}], 'ContextToLSink': [], 'ContextToOutput': []}

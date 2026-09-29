@@ -1,8 +1,26 @@
 version: '3.3'
 services:
   argus:
+    # ekstensi file-state: pakai image yang sama dengan ARGUS asli (argus-argus), kode dan query di-mount
+    image: argus-argus
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - ARGUS_FS
     volumes:
       - ./results:/results
+      - ../argus-benchmark/test-cases:/test-cases:ro
+      - ../argus-benchmark/gitconfig:/root/.gitconfig:ro
+      - ./argus_components:/root/argus_components:ro
+      - ./qlqueries:/root/qlqueries
+      - ../argus-benchmark/actions/crossmod-exec:/tmp/benchowner#crossmod-exec
+      - ../argus-benchmark/actions/crossmod-log:/tmp/benchowner#crossmod-log
+      - ../argus-benchmark/actions/env-exporter:/tmp/benchowner#env-exporter
+      - ../argus-benchmark/actions/file-writer:/tmp/benchowner#file-writer
+      - ../argus-benchmark/actions/file-writer-sync:/tmp/benchowner#file-writer-sync
+      - ../argus-benchmark/actions/output-setter:/tmp/benchowner#output-setter
+      - ../argus-benchmark/actions/selffile-async-exec:/tmp/benchowner#selffile-async-exec
+      - ../argus-benchmark/actions/selffile-async-log:/tmp/benchowner#selffile-async-log
+      - ../argus-benchmark/actions/selffile-sync-exec:/tmp/benchowner#selffile-sync-exec
+      - ../argus-benchmark/actions/selffile-sync-log:/tmp/benchowner#selffile-sync-log

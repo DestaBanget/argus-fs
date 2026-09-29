@@ -41,6 +41,9 @@ OUTPUT_TAINTING_FILE = "OutputTainting.bqrs"
 CONTEXT_SINKS_FILE = "ContextSinks.bqrs"
 LESS_CONTEXT_SINKS_FILE = "LessContextSinks.bqrs"
 CONTEXT_OUTPUT_FILE = "ContextOutput.bqrs"
+# ekstensi file-state
+FILE_WRITE_FILE = "FileWrite.bqrs"
+FILE_FLOW_SINKS_FILE = "FileFlowSinks.bqrs"
 
 ALL_FILES = [DANGEROUS_SINKS_FILE, LESS_DANGEROUS_SINKS_FILE, ENV_SINKS_FILE, 
              LESS_ENV_SINKS_FILE, ENV_OUTPUT_TAINTING_FILE, OUTPUT_TAINTING_FILE, 
@@ -144,6 +147,10 @@ class CodeQL:
         results["ContextToSink"] = _parse_ContextToSink_results(CodeQL.decode_bqrs(folder / CONTEXT_SINKS_FILE, repo_path)) 
         results["ContextToLSink"] = _parse_ContextToSink_results(CodeQL.decode_bqrs(folder / LESS_CONTEXT_SINKS_FILE, repo_path))
         results["ContextToOutput"] = _parse_ContextToOutput_results(CodeQL.decode_bqrs(folder / CONTEXT_OUTPUT_FILE, repo_path))
+
+        # ekstensi file-state: hanya dipakai bila flag "js" aktif (lihat action_report.py)
+        results["ArgToFile"] = _parse_ArgToFile_results(CodeQL.decode_bqrs(folder / FILE_WRITE_FILE, repo_path)) if (folder / FILE_WRITE_FILE).exists() else []
+        results["ArgToSinkViaFile"] = _parse_ArgToSink_results(CodeQL.decode_bqrs(folder / FILE_FLOW_SINKS_FILE, repo_path)) if (folder / FILE_FLOW_SINKS_FILE).exists() else []
         return results
 
 
@@ -229,6 +236,23 @@ def _parse_ArgToSink_results(json_data : dict) -> list:
         arg["sinkset"] = list(arg["sinkset"])
 
     return action_arg_set 
+
+def _parse_ArgToFile_results(json_data : dict) -> list:
+    """Ekstensi file-state. Format: | Arg | Source | Sink | Function Name | Path konstan |"""
+    if "#select" not in json_data:
+        return []
+    out = []
+    for tuple in json_data["#select"]["tuples"]:
+        item = {
+            "name" : tuple[0]['label'].strip("'"),
+            "source" : parse_url(tuple[1]['url']['uri']) + ":" + str(tuple[1]['url']['startLine']) + ":" + str(tuple[1]['url']['startColumn']),
+            "function" : tuple[3],
+            "path" : tuple[4],
+            "append" : tuple[3].startswith("append"),
+        }
+        if item not in out:
+            out.append(item)
+    return out
 
 def _parse_EnvToSink_results(json_data : dict) -> list:
     if "#select" not in json_data:

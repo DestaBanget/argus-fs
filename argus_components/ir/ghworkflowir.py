@@ -490,6 +490,8 @@ class GHRunTask(GHTask):
         self.command = exec["cmd"]
         self.shell = exec["shell"]
         self.command_parse_type = exec["type"]
+        # ekstensi file-state: direktori kerja step (untuk normalisasi path relatif)
+        self.working_directory = step.step_config.get("working-directory", "")
         self.ci_vars = step.prepare_cmd_ci_vars()
         
         self.args = step.prepare_args()

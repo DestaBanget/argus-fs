@@ -31,6 +31,7 @@ import argus_components.action as Action
 import argus_components.repo as Repo
 import argus_components.plugins as plugins
 import argus_components.report as Report
+import argus_components.fsstate as fsstate
 
 logger = get_logger("taintengine")
 
@@ -208,6 +209,9 @@ class TaintEngine:
         
         self.alerts = []
         self.override_location = None
+
+        # ekstensi file-state: kunci path ternormalisasi -> [TaintObj]; dikosongkan per job
+        self.file_state : Dict[str, List[TaintObj]] = {}
         
         # self.wf_inputs = inputs
         # self.in_reusable = False
@@ -378,6 +382,8 @@ class TaintEngine:
             
             # Set the current task group to the id of the task group we are analyzing
             self.current_task_group = task_group
+            # ekstensi file-state: setiap job berjalan di runner baru, filesystem tidak dibawa
+            self.file_state = {}
 
             # Taint the env variables defined at the task group level
             # These env variables are defined at the task group level and persist in all the tasks in the task group
@@ -664,6 +670,87 @@ class TaintEngine:
                 output_type="output", 
                 level=self.TASK_GROUP_LEVEL
             )
+
+            if fsstate.flags() & {"shell", "eventpath", "envexec"}:
+                self.handle_shell_file_flow(task)
+
+#
+# ekstensi file-state
+#
+
+    @staticmethod
+    def _flat(objs):
+        out = []
+        for o in objs:
+            for x in (o if isinstance(o, list) else [o]):
+                if isinstance(x, TaintObj) and x not in out:
+                    out.append(x)
+        return out
+
+    def _event_taint(self):
+        # Isi $GITHUB_EVENT_PATH = payload event, dikontrol penyerang pada pull_request_target, issue_comment, dsb.
+        return TaintObj(name="github.event (via $GITHUB_EVENT_PATH)", type="context", location=self.get_location(), engine=self)
+
+    def _stage_sources(self, text, cwd):
+        """Sumber taint pada satu stage shell -> [(jenis, TaintObj)]; jenis: file, event, env, ci."""
+        out = []
+        if fsstate.flags() & {"shell", "eventpath"}:
+            for key in fsstate.mentioned_paths(text, cwd):
+                if key == fsstate.EVENT_KEY:
+                    if fsstate.enabled("eventpath"):
+                        out.append(("event", self._event_taint()))
+                elif fsstate.enabled("shell") and key in self.file_state:
+                    out += [("file", t) for t in self.file_state[key]]
+        for name in fsstate.env_names(text):
+            t = self.is_env_tainted(name)
+            if t:
+                out.append(("env", t))
+        for civar in GithubCI.get_github_variables_from_string(text):
+            t = self.is_tainted_variable(civar)
+            if t:
+                out += [("ci", x) for x in self._flat([t])]
+        return out
+
+    def _fs_write(self, key, data, append, label):
+        objs = []
+        data = self._flat(data)
+        if data:
+            objs = [TaintObj(name=f"file:{label}", type="file", parent_nodes=data, location=self.get_location(), engine=self)]
+        if append:
+            if objs:
+                self.file_state[key] = self.file_state.get(key, []) + objs
+        elif objs:
+            self.file_state[key] = objs
+        else:
+            self.file_state.pop(key, None)
+        logger.info(f"FILE-STATE {'append' if append else 'write'} {key} tainted={key in self.file_state} @ {self.get_location()}")
+
+    def handle_shell_file_flow(self, task : GHRunTask):
+        cwd = fsstate.cwd_key(getattr(task, "working_directory", ""))
+        for stmt in fsstate.statements(task.command):
+            carry = []
+            for stage in fsstate.pipeline(stmt):
+                text, writes, words = fsstate.parse_stage(stage)
+                srcs = carry + self._stage_sources(text, cwd)
+                sink = fsstate.exec_sink(words, cwd)
+                hits = []
+                if sink and sink[0] == "code":
+                    ok = {"file", "event"} | ({"env"} if fsstate.enabled("envexec") else set())
+                    hits = [t for k, t in srcs if k in ok]
+                elif sink and sink[0] == "file" and fsstate.enabled("shell"):
+                    hits = list(self.file_state.get(sink[1], []))
+                hits = self._flat(hits)
+                if hits:
+                    taint_obj = TaintObj(name=f"file-flow: {stage.strip()[:60]}", type="shell", parent_nodes=hits, location=self.get_location(), engine=self)
+                    taint_obj.set_sink_location(self.get_location())
+                    logger.info(f"ALERT RAISED @ {self.get_location()} (file-state)")
+                    self.raise_alert(alert_type="FileTaintShellCmd", taint_obj=taint_obj)
+                if fsstate.enabled("shell"):
+                    for tgt, append in writes:
+                        key = fsstate.normalize(tgt, cwd)
+                        if key and key != fsstate.EVENT_KEY:
+                            self._fs_write(key, [t for _, t in srcs], append, tgt)
+                carry = srcs
 #
 # JS actions
 # 
@@ -810,6 +897,14 @@ class TaintEngine:
             output_type="env",
             level=self.TASK_GROUP_LEVEL
         )
+
+        # ekstensi file-state: input Action yang ditulis ke file berpath konstan
+        if fsstate.enabled("js"):
+            for item in getattr(report, "arg_to_file", []):
+                t = self.is_tainted_arg(item["name"])
+                key = fsstate.normalize_js(item["path"])
+                if t and key:
+                    self._fs_write(key, [t], item["append"], item["path"])
 
         # Context to output
         self.taint_packed_data(
