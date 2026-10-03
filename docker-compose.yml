@@ -13,6 +13,9 @@ services:
       - ../argus-benchmark/test-cases:/test-cases:ro
       - ../argus-benchmark/test-cases-x:/test-cases-x:ro
       - ../argus-benchmark/test-cases-p:/test-cases-p:ro
+      - ../argus-benchmark/test-cases-y:/test-cases-y:ro
+      - ../argus-benchmark/actions-y/promise-writer:/tmp/benchowner#promise-writer
+      - ../argus-benchmark/actions-y/tempdir-writer:/tmp/benchowner#tempdir-writer
       - ../argus-benchmark/gitconfig:/root/.gitconfig:ro
       - ./argus_components:/root/argus_components:ro
       - ./qlqueries:/root/qlqueries
