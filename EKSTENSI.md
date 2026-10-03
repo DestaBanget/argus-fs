@@ -67,3 +67,5 @@ Query asli ARGUS tidak diubah. Query baru ikut dijalankan pada semua mode, tetap
 - JS: hanya sumber `core.getInput`; path harus literal string. Sumber context/env di JS belum dihubungkan ke file-state.
 - Step bersyarat (`if:`) tidak dievaluasi (sama dengan ARGUS asli).
 - Artifact antar-job: di luar scope.
+- Taint file tidak diteruskan ke `GITHUB_ENV`/`GITHUB_OUTPUT` (`echo "X=$(cat f)" >> $GITHUB_ENV` lalu `${{ env.X }}`): ditemukan lewat set probe P (P03, P05), kandidat v0.3.
+- Checkout kode PR dan artifact yang diunduh bukan source (CodeQL Actions sudah memodelkannya secara path-insensitive; lihat `argus-benchmark/LAPORAN.md` §9).
