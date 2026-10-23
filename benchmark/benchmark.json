@@ -1,0 +1,305 @@
+[
+ {
+  "id": "K1-V1-direct",
+  "group": "K1",
+  "label": "V",
+  "sink_step": 0,
+  "old_id": "A",
+  "flow": "${{ pr.title }} langsung di run → eval",
+  "actions": []
+ },
+ {
+  "id": "K1-S1-const",
+  "group": "K1",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "env konstan → ${{ env.CMD }} → eval",
+  "actions": []
+ },
+ {
+  "id": "K1-V2-envdirect",
+  "group": "K1",
+  "label": "V",
+  "sink_step": 0,
+  "old_id": "E",
+  "flow": "env TITLE → eval \"$TITLE\" (tanpa file)",
+  "actions": []
+ },
+ {
+  "id": "K1-S2-envnosink",
+  "group": "K1",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "env TITLE → printf | wc -c (mitigasi resmi GitHub)",
+  "actions": []
+ },
+ {
+  "id": "K1-V3-jsoutput",
+  "group": "K1",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "JS Action setOutput → ${{ steps.w.outputs.t }} → eval",
+  "actions": [
+   "output-setter"
+  ]
+ },
+ {
+  "id": "K1-V4-jsenv",
+  "group": "K1",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "JS Action exportVariable → ${{ env.T }} → eval",
+  "actions": [
+   "env-exporter"
+  ]
+ },
+ {
+  "id": "K1-V5-shellenv",
+  "group": "K1",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "env TITLE → echo \"T=$TITLE\" >> $GITHUB_ENV → ${{ env.T }} → eval",
+  "actions": []
+ },
+ {
+  "id": "K2-V1-crossmod",
+  "group": "K2",
+  "label": "V",
+  "sink_step": 0,
+  "old_id": "Control",
+  "flow": "getInput → require('./helper') → execSync",
+  "actions": [
+   "crossmod-exec"
+  ]
+ },
+ {
+  "id": "K2-S1-crossmod-nosink",
+  "group": "K2",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "getInput → require('./helper') → console.log",
+  "actions": [
+   "crossmod-log"
+  ]
+ },
+ {
+  "id": "K3-V1-selffile-sync",
+  "group": "K3",
+  "label": "V",
+  "sink_step": 0,
+  "old_id": "",
+  "flow": "writeFileSync → readFileSync → execSync (satu Action)",
+  "actions": [
+   "selffile-sync-exec"
+  ]
+ },
+ {
+  "id": "K3-S1-selffile-sync-nosink",
+  "group": "K3",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "writeFileSync → readFileSync → console.log",
+  "actions": [
+   "selffile-sync-log"
+  ]
+ },
+ {
+  "id": "K3-V2-selffile-async",
+  "group": "K3",
+  "label": "V",
+  "sink_step": 0,
+  "old_id": "",
+  "flow": "writeFile → readFile → exec (satu Action)",
+  "actions": [
+   "selffile-async-exec"
+  ]
+ },
+ {
+  "id": "K3-S2-selffile-async-nosink",
+  "group": "K3",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "writeFile → readFile → console.log",
+  "actions": [
+   "selffile-async-log"
+  ]
+ },
+ {
+  "id": "K4-V1-envfile",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "C",
+  "flow": "env → printf > f → eval \"$(cat f)\"",
+  "actions": []
+ },
+ {
+  "id": "K4-S1-envfile-nosink",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "D",
+  "flow": "env → printf > f → wc -c f",
+  "actions": []
+ },
+ {
+  "id": "K4-V2-eventfile",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "B",
+  "flow": "jq $GITHUB_EVENT_PATH > f → eval \"$(cat f)\"",
+  "actions": []
+ },
+ {
+  "id": "K4-S2-eventfile-nosink",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "jq $GITHUB_EVENT_PATH > f → wc -c f",
+  "actions": []
+ },
+ {
+  "id": "K4-V3-append",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "env → printf >> f (append) → eval",
+  "actions": []
+ },
+ {
+  "id": "K4-S3-overwrite",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "env → f, lalu f ditimpa konstanta → eval",
+  "actions": []
+ },
+ {
+  "id": "K4-S4-read-before-write",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "eval \"$(cat f)\" dijalankan sebelum f ditulis",
+  "actions": []
+ },
+ {
+  "id": "K4-S5-otherfile",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "tainted ke a.txt, eval membaca b.txt (konstan)",
+  "actions": []
+ },
+ {
+  "id": "K4-V4-tee",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "env → printf | tee f → eval",
+  "actions": []
+ },
+ {
+  "id": "K4-V5-redirect-read",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "env → printf > f → eval \"$(< f)\"",
+  "actions": []
+ },
+ {
+  "id": "K4-V6-relpath",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis t.txt, baca ./t.txt (path relatif)",
+  "actions": []
+ },
+ {
+  "id": "K4-V7-workspace",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis $GITHUB_WORKSPACE/t.txt, baca ./t.txt",
+  "actions": []
+ },
+ {
+  "id": "K4-V8-workdir",
+  "group": "K4",
+  "label": "V",
+  "sink_step": 2,
+  "old_id": "",
+  "flow": "working-directory: sub tulis t.txt, baca sub/t.txt",
+  "actions": []
+ },
+ {
+  "id": "K4-S6-workdir-other",
+  "group": "K4",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "working-directory: sub tulis t.txt, baca ./t.txt (file lain, konstan)",
+  "actions": []
+ },
+ {
+  "id": "K5-V1-jsfile",
+  "group": "K5",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "F",
+  "flow": "JS Action fs.writeFile → eval \"$(cat f)\"",
+  "actions": [
+   "file-writer"
+  ]
+ },
+ {
+  "id": "K5-S1-jsfile-nosink",
+  "group": "K5",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "G",
+  "flow": "JS Action fs.writeFile → wc -c f",
+  "actions": [
+   "file-writer"
+  ]
+ },
+ {
+  "id": "K5-V2-jsfile-sync",
+  "group": "K5",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "JS Action fs.writeFileSync → eval \"$(cat f)\"",
+  "actions": [
+   "file-writer-sync"
+  ]
+ },
+ {
+  "id": "K5-S2-jsfile-sync-nosink",
+  "group": "K5",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "JS Action fs.writeFileSync → wc -c f",
+  "actions": [
+   "file-writer-sync"
+  ]
+ }
+]

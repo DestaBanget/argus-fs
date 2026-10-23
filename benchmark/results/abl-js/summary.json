@@ -1,0 +1,320 @@
+{
+ "cases": [
+  {
+   "id": "K3-V1-selffile-sync",
+   "group": "K3",
+   "label": "V",
+   "sink_step": 0,
+   "old_id": "",
+   "flow": "writeFileSync → readFileSync → execSync (satu Action)",
+   "actions": [
+    "selffile-sync-exec"
+   ],
+   "alerts": [
+    {
+     "rule": "ContextToSink",
+     "step": 0,
+     "source_step": 0,
+     "msg": "[High Severity] Context github.event.pull_request.title flows to sink [title](0)"
+    }
+   ],
+   "steps": [
+    0
+   ],
+   "loose": "TP",
+   "strict": "TP",
+   "note": ""
+  },
+  {
+   "id": "K3-S1-selffile-sync-nosink",
+   "group": "K3",
+   "label": "S",
+   "sink_step": null,
+   "old_id": "",
+   "flow": "writeFileSync → readFileSync → console.log",
+   "actions": [
+    "selffile-sync-log"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "TN",
+   "strict": "TN",
+   "note": ""
+  },
+  {
+   "id": "K3-V2-selffile-async",
+   "group": "K3",
+   "label": "V",
+   "sink_step": 0,
+   "old_id": "",
+   "flow": "writeFile → readFile → exec (satu Action)",
+   "actions": [
+    "selffile-async-exec"
+   ],
+   "alerts": [
+    {
+     "rule": "ContextToSink",
+     "step": 0,
+     "source_step": 0,
+     "msg": "[High Severity] Context github.event.pull_request.title flows to sink [title](0)"
+    }
+   ],
+   "steps": [
+    0
+   ],
+   "loose": "TP",
+   "strict": "TP",
+   "note": ""
+  },
+  {
+   "id": "K3-S2-selffile-async-nosink",
+   "group": "K3",
+   "label": "S",
+   "sink_step": null,
+   "old_id": "",
+   "flow": "writeFile → readFile → console.log",
+   "actions": [
+    "selffile-async-log"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "TN",
+   "strict": "TN",
+   "note": ""
+  },
+  {
+   "id": "K5-V1-jsfile",
+   "group": "K5",
+   "label": "V",
+   "sink_step": 1,
+   "old_id": "F",
+   "flow": "JS Action fs.writeFile → eval \"$(cat f)\"",
+   "actions": [
+    "file-writer"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "FN",
+   "strict": "FN",
+   "note": ""
+  },
+  {
+   "id": "K5-S1-jsfile-nosink",
+   "group": "K5",
+   "label": "S",
+   "sink_step": null,
+   "old_id": "G",
+   "flow": "JS Action fs.writeFile → wc -c f",
+   "actions": [
+    "file-writer"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "TN",
+   "strict": "TN",
+   "note": ""
+  },
+  {
+   "id": "K5-V2-jsfile-sync",
+   "group": "K5",
+   "label": "V",
+   "sink_step": 1,
+   "old_id": "",
+   "flow": "JS Action fs.writeFileSync → eval \"$(cat f)\"",
+   "actions": [
+    "file-writer-sync"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "FN",
+   "strict": "FN",
+   "note": ""
+  },
+  {
+   "id": "K5-S2-jsfile-sync-nosink",
+   "group": "K5",
+   "label": "S",
+   "sink_step": null,
+   "old_id": "",
+   "flow": "JS Action fs.writeFileSync → wc -c f",
+   "actions": [
+    "file-writer-sync"
+   ],
+   "alerts": [],
+   "steps": [],
+   "loose": "TN",
+   "strict": "TN",
+   "note": ""
+  }
+ ],
+ "metrics": [
+  {
+   "subset": "Semua kasus",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 2,
+   "FP": 0,
+   "TN": 4,
+   "ERR": 0,
+   "recall": "50%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 2,
+   "FP": 0,
+   "TN": 4,
+   "ERR": 0,
+   "recall": "50%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1 kontrol tanpa file",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K1 kontrol tanpa file",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K2 lintas modul JS",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K2 lintas modul JS",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K3 file dalam satu JS Action",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 0,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3 file dalam satu JS Action",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 0,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4 file antar-step shell",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K4 file antar-step shell",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 0,
+   "FP": 0,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "–",
+   "precision": "–",
+   "fpr": "–"
+  },
+  {
+   "subset": "K5 JS Action → file → shell",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5 JS Action → file → shell",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  }
+ ]
+}

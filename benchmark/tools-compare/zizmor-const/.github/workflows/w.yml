@@ -1,0 +1,8 @@
+on: pull_request_target
+permissions: {}
+jobs:
+  j:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "CMD=echo ok" >> "$GITHUB_ENV"
+      - run: ${{ env.CMD }}

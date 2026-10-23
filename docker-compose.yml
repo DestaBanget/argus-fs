@@ -10,22 +10,22 @@ services:
       - ARGUS_FS
     volumes:
       - ./results:/results
-      - ../argus-benchmark/test-cases:/test-cases:ro
-      - ../argus-benchmark/test-cases-x:/test-cases-x:ro
-      - ../argus-benchmark/test-cases-p:/test-cases-p:ro
-      - ../argus-benchmark/test-cases-y:/test-cases-y:ro
-      - ../argus-benchmark/actions-y/promise-writer:/tmp/benchowner#promise-writer
-      - ../argus-benchmark/actions-y/tempdir-writer:/tmp/benchowner#tempdir-writer
-      - ../argus-benchmark/gitconfig:/root/.gitconfig:ro
+      - ./benchmark/test-cases:/test-cases:ro
+      - ./benchmark/test-cases-x:/test-cases-x:ro
+      - ./benchmark/test-cases-p:/test-cases-p:ro
+      - ./benchmark/test-cases-y:/test-cases-y:ro
+      - ./benchmark/actions-y/promise-writer:/tmp/benchowner#promise-writer
+      - ./benchmark/actions-y/tempdir-writer:/tmp/benchowner#tempdir-writer
+      - ./benchmark/gitconfig:/root/.gitconfig:ro
       - ./argus_components:/root/argus_components:ro
       - ./qlqueries:/root/qlqueries
-      - ../argus-benchmark/actions/crossmod-exec:/tmp/benchowner#crossmod-exec
-      - ../argus-benchmark/actions/crossmod-log:/tmp/benchowner#crossmod-log
-      - ../argus-benchmark/actions/env-exporter:/tmp/benchowner#env-exporter
-      - ../argus-benchmark/actions/file-writer:/tmp/benchowner#file-writer
-      - ../argus-benchmark/actions/file-writer-sync:/tmp/benchowner#file-writer-sync
-      - ../argus-benchmark/actions/output-setter:/tmp/benchowner#output-setter
-      - ../argus-benchmark/actions/selffile-async-exec:/tmp/benchowner#selffile-async-exec
-      - ../argus-benchmark/actions/selffile-async-log:/tmp/benchowner#selffile-async-log
-      - ../argus-benchmark/actions/selffile-sync-exec:/tmp/benchowner#selffile-sync-exec
-      - ../argus-benchmark/actions/selffile-sync-log:/tmp/benchowner#selffile-sync-log
+      - ./benchmark/actions/crossmod-exec:/tmp/benchowner#crossmod-exec
+      - ./benchmark/actions/crossmod-log:/tmp/benchowner#crossmod-log
+      - ./benchmark/actions/env-exporter:/tmp/benchowner#env-exporter
+      - ./benchmark/actions/file-writer:/tmp/benchowner#file-writer
+      - ./benchmark/actions/file-writer-sync:/tmp/benchowner#file-writer-sync
+      - ./benchmark/actions/output-setter:/tmp/benchowner#output-setter
+      - ./benchmark/actions/selffile-async-exec:/tmp/benchowner#selffile-async-exec
+      - ./benchmark/actions/selffile-async-log:/tmp/benchowner#selffile-async-log
+      - ./benchmark/actions/selffile-sync-exec:/tmp/benchowner#selffile-sync-exec
+      - ./benchmark/actions/selffile-sync-log:/tmp/benchowner#selffile-sync-log

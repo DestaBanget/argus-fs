@@ -1,0 +1,701 @@
+{
+ "cases": [
+  {
+   "id": "P01-checkout-file-env",
+   "group": "P",
+   "label": "V",
+   "sink_step": 2,
+   "flow": "checkout kode PR → CMD=$(cat config.txt) ke GITHUB_ENV → ${{ env.CMD }}",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "github-env",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "artipacked",
+       0
+      ],
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       1
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      1,
+      2
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [
+      [
+       "actions/envvar-injection/critical",
+       1
+      ],
+      [
+       "actions/code-injection/critical",
+       2
+      ]
+     ],
+     "all": [
+      [
+       "actions/envvar-injection/critical",
+       1
+      ],
+      [
+       "actions/code-injection/critical",
+       2
+      ],
+      [
+       "actions/untrusted-checkout/high",
+       0
+      ],
+      [
+       "actions/output-clobbering/high",
+       1
+      ]
+     ],
+     "steps": [
+      1,
+      2
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    }
+   }
+  },
+  {
+   "id": "P02-checkout-const-file",
+   "group": "P",
+   "label": "S",
+   "sink_step": null,
+   "flow": "checkout kode PR, tetapi file yang dibaca ditulis konstan oleh workflow",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "github-env",
+       2
+      ]
+     ],
+     "all": [
+      [
+       "artipacked",
+       0
+      ],
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "template-injection",
+       3
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       2
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      2,
+      3
+     ],
+     "loose": "FP",
+     "strict": "FP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [
+      [
+       "actions/envvar-injection/critical",
+       2
+      ],
+      [
+       "actions/code-injection/critical",
+       3
+      ]
+     ],
+     "all": [
+      [
+       "actions/envvar-injection/critical",
+       2
+      ],
+      [
+       "actions/code-injection/critical",
+       3
+      ],
+      [
+       "actions/untrusted-checkout/high",
+       0
+      ],
+      [
+       "actions/output-clobbering/high",
+       2
+      ]
+     ],
+     "steps": [
+      2,
+      3
+     ],
+     "loose": "FP",
+     "strict": "FP"
+    }
+   }
+  },
+  {
+   "id": "P03-written-file-env",
+   "group": "P",
+   "label": "V",
+   "sink_step": 2,
+   "flow": "env TITLE → printf > f → CMD=$(cat f) ke GITHUB_ENV → ${{ env.CMD }}",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "github-env",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       1
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      1,
+      2
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "P04-eventpath-same-step",
+   "group": "P",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "CMD=$(jq .pull_request.title $GITHUB_EVENT_PATH) ke GITHUB_ENV (satu step) → ${{ env.CMD }}",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "github-env",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       0
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      0,
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ],
+      [
+       "actions/output-clobbering/high",
+       0
+      ]
+     ],
+     "steps": [
+      0,
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    }
+   }
+  },
+  {
+   "id": "P05-eventpath-file",
+   "group": "P",
+   "label": "V",
+   "sink_step": 2,
+   "flow": "jq $GITHUB_EVENT_PATH > f → CMD=$(cat f) ke GITHUB_ENV → ${{ env.CMD }}",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "github-env",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "template-injection",
+       2
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       1
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      1,
+      2
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "P06-written-file-eval",
+   "group": "P",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "sama dengan K4-V1 (eval \"$(cat f)\"), sebagai jangkar",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  }
+ ],
+ "metrics": [
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 4,
+   "FN": 1,
+   "FP": 1,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "80%",
+   "precision": "80%",
+   "fpr": "100%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 4,
+   "FN": 1,
+   "FP": 1,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "80%",
+   "precision": "80%",
+   "fpr": "100%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 5,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 5,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 3,
+   "FP": 1,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "67%",
+   "fpr": "100%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 3,
+   "FP": 1,
+   "TN": 0,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "67%",
+   "fpr": "100%"
+  }
+ ]
+}

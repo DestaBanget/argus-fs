@@ -1,0 +1,17 @@
+diff --git a/argus_components/plugins/bash.py b/argus_components/plugins/bash.py
+index e1a35e4..0e89f80 100644
+--- a/argus_components/plugins/bash.py
++++ b/argus_components/plugins/bash.py
+@@ -28,9 +28,10 @@ class Bash:
+     @staticmethod
+     def parse_bash_command(command : str):
+         # first we get all the ENV variables from the command
+-        env_vars = re.findall(r"\$[A-Z_]+", command)
++        # patch(+env): aktifkan pemeriksaan $VAR (nama tanpa "$", dukung ${VAR})
++        env_vars = re.findall(r"\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?", command)
+         all_env_vars = []
+-        for env_var in env_vars:
++        for env_var in dict.fromkeys(env_vars):
+             all_env_vars.append({
+                 "name" : env_var,
+                 "type" : "env",

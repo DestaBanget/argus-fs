@@ -1,0 +1,3648 @@
+{
+ "cases": [
+  {
+   "id": "K1-V1-direct",
+   "group": "K1",
+   "label": "V",
+   "sink_step": 0,
+   "flow": "${{ pr.title }} langsung di run → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [
+      [
+       "injection",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "injection",
+       0
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "codeql-actions": {
+     "inj": [
+      [
+       "actions/code-injection/critical",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "actions/code-injection/critical",
+       0
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [
+      [
+       "actions/code-injection/critical",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "actions/code-injection/critical",
+       0
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    }
+   }
+  },
+  {
+   "id": "K1-S1-const",
+   "group": "K1",
+   "label": "S",
+   "sink_step": null,
+   "flow": "env konstan → ${{ env.CMD }} → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "template-injection",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "FP",
+     "strict": "FP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K1-V2-envdirect",
+   "group": "K1",
+   "label": "V",
+   "sink_step": 0,
+   "flow": "env TITLE → eval \"$TITLE\" (tanpa file)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K1-S2-envnosink",
+   "group": "K1",
+   "label": "S",
+   "sink_step": null,
+   "flow": "env TITLE → printf | wc -c (mitigasi resmi GitHub)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K1-V3-jsoutput",
+   "group": "K1",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action setOutput → ${{ steps.w.outputs.t }} → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K1-V4-jsenv",
+   "group": "K1",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action exportVariable → ${{ env.T }} → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K1-V5-shellenv",
+   "group": "K1",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env TITLE → echo \"T=$TITLE\" >> $GITHUB_ENV → ${{ env.T }} → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "github-env",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "template-injection",
+       1
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "github-env",
+       0
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [
+      0,
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ]
+     ],
+     "steps": [
+      0,
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ]
+     ],
+     "all": [
+      [
+       "actions/envvar-injection/critical",
+       0
+      ],
+      [
+       "actions/code-injection/critical",
+       1
+      ]
+     ],
+     "steps": [
+      0,
+      1
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    }
+   }
+  },
+  {
+   "id": "K2-V1-crossmod",
+   "group": "K2",
+   "label": "V",
+   "sink_step": 0,
+   "flow": "getInput → require('./helper') → execSync",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [
+      [
+       "js/indirect-command-line-injection",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "js/indirect-command-line-injection",
+       0
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    },
+    "codeql": {
+     "inj": [
+      [
+       "js/indirect-command-line-injection",
+       0
+      ]
+     ],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/indirect-command-line-injection",
+       0
+      ]
+     ],
+     "steps": [
+      0
+     ],
+     "loose": "TP",
+     "strict": "TP"
+    }
+   }
+  },
+  {
+   "id": "K2-S1-crossmod-nosink",
+   "group": "K2",
+   "label": "S",
+   "sink_step": null,
+   "flow": "getInput → require('./helper') → console.log",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K3-V1-selffile-sync",
+   "group": "K3",
+   "label": "V",
+   "sink_step": 0,
+   "flow": "writeFileSync → readFileSync → execSync (satu Action)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K3-S1-selffile-sync-nosink",
+   "group": "K3",
+   "label": "S",
+   "sink_step": null,
+   "flow": "writeFileSync → readFileSync → console.log",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K3-V2-selffile-async",
+   "group": "K3",
+   "label": "V",
+   "sink_step": 0,
+   "flow": "writeFile → readFile → exec (satu Action)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K3-S2-selffile-async-nosink",
+   "group": "K3",
+   "label": "S",
+   "sink_step": null,
+   "flow": "writeFile → readFile → console.log",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-V1-envfile",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env → printf > f → eval \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-S1-envfile-nosink",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "env → printf > f → wc -c f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-V2-eventfile",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "jq $GITHUB_EVENT_PATH > f → eval \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-S2-eventfile-nosink",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "jq $GITHUB_EVENT_PATH > f → wc -c f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-V3-append",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env → printf >> f (append) → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-S3-overwrite",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "env → f, lalu f ditimpa konstanta → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-S4-read-before-write",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "eval \"$(cat f)\" dijalankan sebelum f ditulis",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-S5-otherfile",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "tainted ke a.txt, eval membaca b.txt (konstan)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K4-V4-tee",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env → printf | tee f → eval",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-V5-redirect-read",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env → printf > f → eval \"$(< f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-V6-relpath",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis t.txt, baca ./t.txt (path relatif)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-V7-workspace",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis $GITHUB_WORKSPACE/t.txt, baca ./t.txt",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-V8-workdir",
+   "group": "K4",
+   "label": "V",
+   "sink_step": 2,
+   "flow": "working-directory: sub tulis t.txt, baca sub/t.txt",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K4-S6-workdir-other",
+   "group": "K4",
+   "label": "S",
+   "sink_step": null,
+   "flow": "working-directory: sub tulis t.txt, baca ./t.txt (file lain, konstan)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K5-V1-jsfile",
+   "group": "K5",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action fs.writeFile → eval \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K5-S1-jsfile-nosink",
+   "group": "K5",
+   "label": "S",
+   "sink_step": null,
+   "flow": "JS Action fs.writeFile → wc -c f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "K5-V2-jsfile-sync",
+   "group": "K5",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action fs.writeFileSync → eval \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "K5-S2-jsfile-sync-nosink",
+   "group": "K5",
+   "label": "S",
+   "sink_step": null,
+   "flow": "JS Action fs.writeFileSync → wc -c f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-js": {
+     "inj": [],
+     "all": [
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ],
+      [
+       "js/insecure-temporary-file",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  }
+ ],
+ "metrics": [
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 4,
+   "FN": 14,
+   "FP": 1,
+   "TN": 12,
+   "ERR": 0,
+   "recall": "22%",
+   "precision": "80%",
+   "fpr": "8%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 4,
+   "FN": 14,
+   "FP": 1,
+   "TN": 12,
+   "ERR": 0,
+   "recall": "22%",
+   "precision": "80%",
+   "fpr": "8%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 1,
+   "FN": 17,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "6%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 1,
+   "FN": 17,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "6%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 16,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "11%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 16,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "11%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 1,
+   "FN": 17,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "6%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 1,
+   "FN": 17,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "6%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 3,
+   "FN": 15,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "17%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 3,
+   "FN": 15,
+   "FP": 0,
+   "TN": 13,
+   "ERR": 0,
+   "recall": "17%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Scope utama (K4+K5)",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 10,
+   "FP": 0,
+   "TN": 8,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 4,
+   "FN": 1,
+   "FP": 1,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "80%",
+   "precision": "80%",
+   "fpr": "50%"
+  },
+  {
+   "subset": "K1",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 4,
+   "FN": 1,
+   "FP": 1,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "80%",
+   "precision": "80%",
+   "fpr": "50%"
+  },
+  {
+   "subset": "K1",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 1,
+   "FN": 4,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "20%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 1,
+   "FN": 4,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "20%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 3,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 3,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 5,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 5,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 2,
+   "FN": 3,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K1",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 2,
+   "FN": 3,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "40%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 1,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 1,
+   "FN": 0,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 1,
+   "FN": 0,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 1,
+   "FN": 0,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K2",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 1,
+   "FN": 0,
+   "FP": 0,
+   "TN": 1,
+   "ERR": 0,
+   "recall": "100%",
+   "precision": "100%",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K3",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K4",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 8,
+   "FP": 0,
+   "TN": 6,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql-js",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql-js",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "K5",
+   "tool": "codeql",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 2,
+   "FP": 0,
+   "TN": 2,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  }
+ ]
+}

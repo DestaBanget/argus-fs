@@ -1,0 +1,26 @@
+# Set held-out Y dikunci 3 Okt 2026 sebelum ekstensi dijalankan pada set ini.
+d765b5e2dd4485c5a01ede255b5f651ef6ec25f9188b48a0d125bf3565261373  actions-y/promise-writer/action.yml
+3c5eabb7938e2c47c93859777e658f395b3159ea03c0cc000818efa129543aad  actions-y/promise-writer/index.js
+61e9680fe1e0ca7ee5f90690082d5a954ec1cc4eb2dcd025cec59e07f8868c72  actions-y/tempdir-writer/action.yml
+67d42da74260a844b38cb1eedea20a26324eb3891f605d8d394b9a44dc48de7d  actions-y/tempdir-writer/index.js
+6707d12adccd5801bccc2dbe2123a2c1764cef0a1af3fdb906caaea23d13e0e0  benchmark-y.json
+8187ac3e6e948d33126b1d673d93e209844bbd8b7b458b902eab12c7d6d737ca  make_heldout.py
+86c61dbde84c736e40f155459cc485e0236ef4025f3f805d7936033b58fa24b7  test-cases-y/Y01-runner-temp/.github/workflows/wf.yml
+e57854250fad6bfeb29f68775e354ae52b607827f6a9dfd77ec4c66b146d9111  test-cases-y/Y02-built-script/.github/workflows/wf.yml
+ee362b5abec08e2e4864fbdc85edc2a0e0839b1793168162f21eec803c7a1fd2  test-cases-y/Y03-python-exec/.github/workflows/wf.yml
+61818d919d5da609b5667a6f59f997cd62386d36de83aef8d27a733e2220c2f0  test-cases-y/Y04-bash-c/.github/workflows/wf.yml
+3c98e5ddcb20ccb549af3bd0813e35f3a094fbc372fda86ef73d9a69878dcbd0  test-cases-y/Y05-xargs-sh/.github/workflows/wf.yml
+217fe3cc315c5e95917c602e861c1be96abf42c40b43f8f2ad07309c3c327681  test-cases-y/Y06-source-event-vars/.github/workflows/wf.yml
+e131ae8b818748d4057203fc5dc91014bbcd6c7088d7f9b52874fc16005a905c  test-cases-y/Y07-cat-copy/.github/workflows/wf.yml
+e251f6287367bde4d033b3094567f3395e1b095d261814e340cd4e0748305d0f  test-cases-y/Y08-headref-sh-c/.github/workflows/wf.yml
+96f64ac3729bc1a0b6c353726d0fb50fd3c57305b612382d941f1de960a37a90  test-cases-y/Y09-pipe-sh/.github/workflows/wf.yml
+6cd64d6e02d41930a9f69d1e1f1c4309233213691fd451223da98a64edac8ee9  test-cases-y/Y10-dot-source/.github/workflows/wf.yml
+0b24957d3307640190ec7c557ec58ac884961ada6358c406e03f727c92ed96c0  test-cases-y/Y11-while-read-eval/.github/workflows/wf.yml
+7f33d236d60d203df17ad2e7ae15ea1c6e92c933f205c9b81637f67f2b06cba4  test-cases-y/Y12-js-promises/.github/workflows/wf.yml
+899678477147b68c784df3acef974c2956744104374e997a6b052eade28bc864  test-cases-y/Y13-js-runner-temp/.github/workflows/wf.yml
+f4cc507c7077ecc0452805f4f6cf43f47971c24e7eb09339f58c641a6292942a  test-cases-y/Y14-rm-then-guard/.github/workflows/wf.yml
+860e382dac7ed4e8f9d5dc263a25b6748655ec3b6279f50307e644a47e879d3d  test-cases-y/Y15-hash-eval/.github/workflows/wf.yml
+d52939ae1382db8499d890ab09796038d17ac8a1a0ff31a9a22613bd06a72249  test-cases-y/Y16-repo-script/build.sh
+c873a355447e66732bcff9b84126cb10c76a528220073ea07585fcd9b6778353  test-cases-y/Y16-repo-script/.github/workflows/wf.yml
+7d903bc47eb3a2ebf7904d0479bb4ed4be457c21e5d38a5454c0389c7520876f  test-cases-y/Y17-backup-file/.github/workflows/wf.yml
+11f1f7886a89567aebfbb94c2d141917f33756af592a146b9e60e151401ae67e  test-cases-y/Y18-event-number/.github/workflows/wf.yml

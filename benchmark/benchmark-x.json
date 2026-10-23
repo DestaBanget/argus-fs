@@ -1,0 +1,122 @@
+[
+ {
+  "id": "X01-pipe-to-bash",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis f → cat f | bash",
+  "actions": [],
+  "expected_ext": "FN: eksekusi lewat stdin shell belum dimodelkan"
+ },
+ {
+  "id": "X02-bash-file",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis t.sh → bash t.sh",
+  "actions": [],
+  "expected_ext": "TP"
+ },
+ {
+  "id": "X03-source-file",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis t.sh → source t.sh",
+  "actions": [],
+  "expected_ext": "TP"
+ },
+ {
+  "id": "X04-cp",
+  "group": "X",
+  "label": "V",
+  "sink_step": 2,
+  "old_id": "",
+  "flow": "tulis f → cp f g → eval \"$(cat g)\"",
+  "actions": [],
+  "expected_ext": "FN: cp/mv belum dimodelkan"
+ },
+ {
+  "id": "X05-two-jobs",
+  "group": "X",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "job a tulis f, job b eval \"$(cat f)\" (runner berbeda)",
+  "actions": [],
+  "expected_ext": "TN: file-state dikosongkan per job"
+ },
+ {
+  "id": "X06-echo-cat-wc",
+  "group": "X",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "tulis f → echo \"$(cat f)\" | wc -c (tanpa eksekusi)",
+  "actions": [],
+  "expected_ext": "TN"
+ },
+ {
+  "id": "X07-var-path",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "path lewat variabel: F=/tmp/t.txt; > \"$F\" → eval \"$(cat \"$F\")\"",
+  "actions": [],
+  "expected_ext": "FN: path dinamis di luar scope"
+ },
+ {
+  "id": "X08-heredoc",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "heredoc: cat > t.sh <<EOF ($TITLE) → bash t.sh",
+  "actions": [],
+  "expected_ext": "FN: isi heredoc belum dimodelkan"
+ },
+ {
+  "id": "X09-sh-c",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "echo \"$TITLE\" > f → sh -c \"$(cat f)\"",
+  "actions": [],
+  "expected_ext": "TP"
+ },
+ {
+  "id": "X10-if-block",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "if [ -f f ]; then eval \"$(cat f)\"; fi",
+  "actions": [],
+  "expected_ext": "FN: kata kunci then/do sebelum perintah belum ditangani"
+ },
+ {
+  "id": "X11-cat-only",
+  "group": "X",
+  "label": "S",
+  "sink_step": null,
+  "old_id": "",
+  "flow": "tulis f → cat f (hanya dicetak)",
+  "actions": [],
+  "expected_ext": "TN"
+ },
+ {
+  "id": "X12-multiline",
+  "group": "X",
+  "label": "V",
+  "sink_step": 1,
+  "old_id": "",
+  "flow": "tulis f di baris ke-2 skrip multi-baris, eval di step berikutnya",
+  "actions": [],
+  "expected_ext": "TP"
+ }
+]

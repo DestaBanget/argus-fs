@@ -1,91 +1,137 @@
-# Argus
+# Argus-FS: taint tracking through files in GitHub Actions
 
-This repo contains the code for our USENIX Security '23 paper "ARGUS: A Framework for Staged Static Taint Analysis of GitHub Workflows and Actions". Argus is a comprehensive security analysis tool specifically designed for GitHub Actions. Built with an aim to enhance the security of CI/CD workflows, Argus utilizes taint-tracking techniques and an impact classifier to detect potential vulnerabilities in GitHub Action workflows.
+An extension of [ARGUS](https://github.com/purs3lab/Argus) (Muralee et al., USENIX Security 2023), a static taint analyser for GitHub Actions workflows. ARGUS follows untrusted input from a workflow trigger to a code-execution sink, but its authors note in Section 5.6 of the paper that it *"does not track taint flows through files"*.
 
-Visit our website - [secureci.org](https://secureci.org/argus) for more information.
+Argus-FS closes that gap for files written and read inside one job. It adds a per-job **file state** that follows tainted data from the step that writes a file to the step that executes it.
 
-## Features
+```yaml
+on: pull_request_target            # runs with write permissions on a PR from anyone
+jobs:
+  j:
+    runs-on: ubuntu-latest
+    steps:
+      - name: write
+        env:
+          TITLE: '${{ github.event.pull_request.title }}'   # attacker-controlled
+        run: printf '%s' "$TITLE" > /tmp/t.txt
+      - name: sink
+        run: eval "$(cat /tmp/t.txt)"                      # code injection
+```
 
-- **Taint-Tracking**: Argus uses sophisticated algorithms to track the flow of potentially untrusted data from specific sources to security-critical sinks within GitHub Actions workflows. This enables the identification of vulnerabilities that could lead to code injection attacks.
+None of ARGUS, CodeQL for Actions, zizmor or poutine reports an injection in this workflow. Argus-FS reports a code injection in step `sink`, with step `write` as the source.
 
-- **Impact Classifier**: Argus classifies identified vulnerabilities into High, Medium, and Low severity classes, providing a clearer understanding of the potential impact of each identified vulnerability. This is crucial in prioritizing mitigation efforts. 
+## Results
 
-## Usage
+All numbers are per test case, with strict scoring: a vulnerable case counts as detected only when the alert points at the labelled sink step. Raw SARIF and per-case tables are in [`benchmark/results/`](benchmark/results).
 
-This Python script provides a command line interface for interacting with GitHub repositories and GitHub actions.
+**Locked benchmark (31 cases, 18 vulnerable / 13 safe).** The cases were written and hashed (`LOCK.sha256`) before any extension code existed.
+
+| Subset | Metric | ARGUS | **Argus-FS** | zizmor | poutine | CodeQL (Actions + JS) |
+|---|---|---|---|---|---|---|
+| File flows (shell, JS Action → shell) | recall | 0% | **100%** | 0% | 0% | 0% |
+| File flows | false positive rate | 12% | **0%** | 0% | 0% | 0% |
+| File flow inside one JS Action | recall | 50% | **100%** | 0% | 0% | 0% |
+| All 31 cases | recall | 28% | **89%** | 22% | 6% | 17% |
+| All 31 cases | precision | 71% | **100%** | 80% | 100% | 100% |
+
+**Held-out set Y (18 cases, 13 vulnerable / 5 safe).** The cases and the expected results were locked before the extension ran on them. The extension ran once, at tag `v0.2-fs`, and no fixes were made before reporting.
+
+| Tool | Recall | Precision | FPR |
+|---|---|---|---|
+| ARGUS | 0% | – | 0% |
+| **Argus-FS v0.2** | **62%** | **80%** | **40%** |
+| zizmor, poutine, CodeQL for Actions | 0% | – | 0% |
+
+The gap between the two tables is the honest part of the result. The locked benchmark shows that the prototype meets the patterns it was designed for. The held-out set shows how it generalises to idioms it was not designed for. The misses on set Y (`$RUNNER_TEMP` paths, `xargs sh -c`, `python -c exec`, `while read; eval`) and the false positives (`rm f`, hashing) are the [v0.3 roadmap](docs/EXTENSION.md#6-roadmap-v03).
+
+**Other checks**
+
+- Regression: with `ARGUS_FS` empty, the extended code gives output identical to original ARGUS on 31/31 cases (`benchmark/compare.py asli ext-off --same`).
+- Ablation: each of the three components (`shell`, `eventpath`, `js`) is needed. Turning off any one of them loses cases.
+- Real workflows: 2,332 public workflows were screened, and ARGUS and Argus-FS were compared on 40 of them that analysed successfully. Alerts were identical (0 new, 0 lost) at +7% analysis time. The vulnerable pattern did not appear in this sample, so this is a stability check, not a precision measurement. Per-repository details are kept private.
+- Replication: the original ARGUS image reproduces the authors' saved results on 8/8 bundled examples.
+
+## How it works
+
+ARGUS builds a dependency graph of a workflow and propagates taint between steps only through channels it models (`GITHUB_ENV`, `GITHUB_OUTPUT`, step outputs). A plain file has no model, so taint stops at the write.
+
+Argus-FS keeps `FS: path → taint` for each job:
+
+- **write** (`>`, `tee`, `fs.writeFile[Sync]`): `FS[path] = taint(data)`. A clean write overwrites and clears it.
+- **append** (`>>`, `tee -a`, `fs.appendFile[Sync]`): union of the old and new taint.
+- **copy/move** (`cp`, `mv`): the taint follows the file.
+- **read** (`cat f`, `$(< f)`, `jq … f`, file as an argument): the reading stage inherits `FS[path]`.
+- **sink** (`eval`, `bash -c`, `source f`, `./f`, `… | bash`, heredoc to a shell): alert in the reading step.
+
+Paths are normalised against `working-directory`, `$GITHUB_WORKSPACE` and literal shell variables. `$GITHUB_EVENT_PATH` is a tainted file. For JS Actions, two new CodeQL queries turn `fs` writes to a constant path into propagation instead of a sink.
+
+Every behaviour is behind the `ARGUS_FS` flag (`shell`, `eventpath`, `js`, `all`). Design, code changes and limitations: [`docs/EXTENSION.md`](docs/EXTENSION.md).
+
+## Quick start
+
+Requirements: Docker with Compose. The image is about 6.5 GB (CodeQL included).
 
 ```bash
-python argus.py --mode [mode] --url [url] [--output-folder path_to_output] [--config path_to_config] [--verbose] [--branch branch_name] [--commit commit_hash] [--tag tag_name] [--action-path path_to_action] [--workflow-path path_to_workflow]
+git clone <this repo> && cd <this repo>
+# the compose file mounts the benchmark case repos, so generate them once (needs git and PyYAML)
+(cd benchmark && for g in make_benchmark make_explore make_heldout make_probe; do python3 $g.py; done)
+docker compose build
+
+# analyse a repository with the extension on
+ARGUS_FS=all docker compose run --rm argus --mode repo --url https://github.com/<owner>/<repo> --branch main
+# SARIF lands in results/
 ```
 
-### Parameters:
+Leave `ARGUS_FS` unset to get original ARGUS behaviour. All upstream options (`--mode action`, `--commit`, `--workflow-path`, …) still work; see [`docs/UPSTREAM_README.md`](docs/UPSTREAM_README.md).
 
-- `--mode`: The mode of operation. Choose either 'repo' or 'action'. This parameter is required.
-- `--url`: The GitHub URL. Use `USERNAME:TOKEN@URL` for private repos. This parameter is required.
-- `--output-folder`: The output folder. The default value is '/tmp'. This parameter is optional.
-- `--config`: The config file. This parameter is optional.
-- `--verbose`: Verbose mode. If this option is provided, the logging level is set to DEBUG. Otherwise, it is set to INFO. This parameter is optional.
-- `--branch`: The branch name. You must provide exactly one of: `--branch`, `--commit`, `--tag`. This parameter is optional.
-- `--commit`: The commit hash. You must provide exactly one of: `--branch`, `--commit`, `--tag`. This parameter is optional.
-- `--tag`: The tag. You must provide exactly one of: `--branch`, `--commit`, `--tag`. This parameter is optional.
-- `--action-path`: The (relative) path to the action. You cannot provide `--action-path` in repo mode. This parameter is optional.
-- `--workflow-path`: The (relative) path to the workflow. You cannot provide `--workflow-path` in action mode. This parameter is optional.
-
-### Example:
-
-To use this script to interact with a GitHub repo, you might run a command like the following:
+## Reproducing the benchmark
 
 ```bash
-python argus.py --mode repo --url https://github.com/username/repo.git --branch master
+cd benchmark
+python3 make_benchmark.py --verify    # must print OK (cases generated in Quick start)
+sha256sum -c LOCK-y.sha256 LOCK-p.sha256
+
+./run_all.sh asli                     # original behaviour (ARGUS_FS empty)
+ARGUS_FS=all ./run_all.sh ext-all     # extension
+python3 compare.py asli ext-off --same
+./run_ext.sh                          # every configuration and ablation, about 2 hours
 ```
 
-This would run the script in repo mode on the master branch of the specified repository.
+Run labels follow the original notes: `asli` = original ARGUS, `ext-*` = extension, `abl-*` = ablation. Every test case is a git repository generated by a script, so the labels, the workflows and the locks all come from one source. `run_all.sh` refuses to start if a case no longer matches `LOCK.sha256`.
 
-### How to use
+| Set | Generator | Cases | Role |
+|---|---|---|---|
+| v3 benchmark | `make_benchmark.py` | 31 (K1 control, K2 cross-module JS, K3 file inside a JS Action, K4 file between shell steps, K5 JS Action → file → shell) | locked before implementation, main metrics |
+| X | `make_explore.py` | 12 | exploration; used for development, so no generalisation claim |
+| Y | `make_heldout.py` | 18 | held-out, run once |
+| P | `make_probe.py` | 6 | compares the CodeQL for Actions file model with Argus-FS |
 
-Argus can be run inside a docker container. To do so, follow the steps:
-- Install docker and docker-compose
-  - apt-get -y install docker.io docker-compose
-- Clone the release branch of this repo
-  - git clone <>
-- Build the docker container
-  - docker-compose build
-- Now you can run argus. Example run:
-  - docker-compose run argus --mode {mode} --url {url to target repo}
-- Results will be available inside the `results` folder
+Tool comparison (zizmor 1.30.1, poutine 1.1.6, CodeQL 2.27.1): `benchmark/tools-compare/run_tools.sh` with the binaries in `tools/` or set `TOOLS_DIR` and `ZIZMOR`.
 
-## Viewing SARIF Results
+## Limitations
 
-You can view SARIF results either through an online viewer or with a Visual Studio Code (VSCode) extension.
+- The shell parser is a scanner, not a full bash parser.
+- Dynamic paths, globs, symlinks, artifacts across jobs, composite Actions and reusable workflows are out of scope.
+- File taint does not yet flow into `GITHUB_ENV`/`GITHUB_OUTPUT`.
+- A checked-out PR is not treated as a tainted file. CodeQL for Actions covers that case, path-insensitively, so the two tools complement each other (probe set P).
+- The benchmark and the extension have the same author. The locks and the held-out set reduce this bias, but they do not remove it.
 
-1. **Online Viewer:** The [SARIF Web Viewer](https://microsoft.github.io/sarif-web-component/) is an online tool that allows you to visualize SARIF files. You can upload your SARIF file (`argus_report.sarif`) directly to the website to view the results.
+## Author
 
-2. **VSCode Extension:** If you prefer to use VSCode, you can install the [SARIF Viewer](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) extension. After installing the extension, you can open your SARIF file (`argus_report.sarif`) in VSCode. The results will appear in the SARIF Explorer pane, which provides a detailed and navigable view of the results.
+Ferrel Destatiananda Edwardo ([@DestaBanget](https://github.com/DestaBanget)): file-state extension, benchmark and evaluation.
 
-Remember to handle the SARIF file with care, especially if it contains sensitive information from your codebase.
+## Credits and license
 
-## Troubleshooting
+Built on [purs3lab/Argus](https://github.com/purs3lab/Argus) at commit `5ba376d`. All upstream history is kept, and the extension starts at tag `v0.1-fs`. If you use ARGUS in research, cite the original paper:
 
-If there is an issue with needing the Github authorization for running, you can provide `username:TOKEN` in the `GITHUB_CREDS` environment variable. This will be used for all the requests made to Github. Note, we do not store this information anywhere, neither create any thing in the Github account - we only use this for cloning the repositories.
-
-## Contributions
-
-Argus is an open-source project, and we welcome contributions from the community. Whether it's reporting a bug, suggesting a feature, or writing code, your contributions are always appreciated!
-
-## Cite Argus 
-
-If you use Argus in your research, please cite our paper:
-
-```
-  @inproceedings{muralee2023Argus,
-    title={ARGUS: A Framework for Staged Static Taint Analysis of GitHub Workflows and Actions},
-    author={S. Muralee, I. Koishybayev, A. Nahapetyan, G. Tystahl, B. Reaves, A. Bianchi, W. Enck, 
-      A. Kapravelos, A. Machiry},
-    booktitle={32st USENIX Security Symposium (USENIX Security 23)},
-    year={2023},
-  }
+```bibtex
+@inproceedings{muralee2023Argus,
+  title={ARGUS: A Framework for Staged Static Taint Analysis of GitHub Workflows and Actions},
+  author={S. Muralee, I. Koishybayev, A. Nahapetyan, G. Tystahl, B. Reaves, A. Bianchi, W. Enck,
+    A. Kapravelos, A. Machiry},
+  booktitle={32nd USENIX Security Symposium (USENIX Security 23)},
+  year={2023},
+}
 ```
 
-## License
-
-Argus is licensed under GPL License.
+GPL-3.0, same as upstream. See [`LICENSE`](LICENSE).

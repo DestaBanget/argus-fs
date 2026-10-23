@@ -1,0 +1,1115 @@
+{
+ "cases": [
+  {
+   "id": "Y01-runner-temp",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis ke $RUNNER_TEMP/t.txt → eval \"$(cat $RUNNER_TEMP/t.txt)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y02-built-script",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "skrip dirakit dengan echo > / >> lalu chmod +x dan ./run.sh",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y03-python-exec",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis f → python3 -c \"exec(open(f).read())\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y04-bash-c",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis f → bash -c \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y05-xargs-sh",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis f → xargs -I{} sh -c '{}' < f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y06-source-event-vars",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "echo \"export T=\\\"$(jq .issue.title $GITHUB_EVENT_PATH)\\\"\" > vars.sh → source vars.sh",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/output-clobbering/high",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y07-cat-copy",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 2,
+   "flow": "tulis f → cat f > g → eval \"$(cat g)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y08-headref-sh-c",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "env BRANCH=${{ github.head_ref }} → echo > f → sh -c \"$(< f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y09-pipe-sh",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis f → cat f | sh",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y10-dot-source",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis ./env.sh → . ./env.sh",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y11-while-read-eval",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "tulis f → while read l; do eval \"$l\"; done < f",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y12-js-promises",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action fs.promises.writeFile → eval \"$(cat f)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y13-js-runner-temp",
+   "group": "Y",
+   "label": "V",
+   "sink_step": 1,
+   "flow": "JS Action tulis path.join(RUNNER_TEMP) → eval \"$(cat $RUNNER_TEMP/t.txt)\"",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "unpinned-uses",
+       0
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [
+      [
+       "github_action_from_unverified_creator_used",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [
+      [
+       "actions/unpinned-tag",
+       0
+      ]
+     ],
+     "steps": [],
+     "loose": "FN",
+     "strict": "FN"
+    }
+   }
+  },
+  {
+   "id": "Y14-rm-then-guard",
+   "group": "Y",
+   "label": "S",
+   "sink_step": null,
+   "flow": "tulis f → rm f → [ -f f ] && eval \"$(cat f)\" (file sudah tidak ada)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "Y15-hash-eval",
+   "group": "Y",
+   "label": "S",
+   "sink_step": null,
+   "flow": "tulis f → eval \"H=$(sha256sum < f)\" (hanya hash yang dieksekusi)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "Y16-repo-script",
+   "group": "Y",
+   "label": "S",
+   "sink_step": null,
+   "flow": "tulis f (tainted), lalu grep -c f dan bash ./build.sh (skrip repo, bukan f)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "Y17-backup-file",
+   "group": "Y",
+   "label": "S",
+   "sink_step": null,
+   "flow": "tainted ke f, konstan ke f.bak, eval membaca f.bak",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  },
+  {
+   "id": "Y18-event-number",
+   "group": "Y",
+   "label": "S",
+   "sink_step": null,
+   "flow": "cp $GITHUB_EVENT_PATH ev.json → eval \"N=$(jq .pull_request.number ev.json)\" (angka)",
+   "tools": {
+    "zizmor": {
+     "inj": [],
+     "all": [
+      [
+       "excessive-permissions",
+       null
+      ],
+      [
+       "dangerous-triggers",
+       null
+      ],
+      [
+       "undocumented-permissions",
+       null
+      ],
+      [
+       "anonymous-definition",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ],
+      [
+       "concurrency-limits",
+       null
+      ]
+     ],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "poutine": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    },
+    "codeql-actions": {
+     "inj": [],
+     "all": [],
+     "steps": [],
+     "loose": "TN",
+     "strict": "TN"
+    }
+   }
+  }
+ ],
+ "metrics": [
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "zizmor",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "poutine",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "loose",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  },
+  {
+   "subset": "Semua kasus",
+   "tool": "codeql-actions",
+   "scoring": "strict",
+   "TP": 0,
+   "FN": 13,
+   "FP": 0,
+   "TN": 5,
+   "ERR": 0,
+   "recall": "0%",
+   "precision": "–",
+   "fpr": "0%"
+  }
+ ]
+}
